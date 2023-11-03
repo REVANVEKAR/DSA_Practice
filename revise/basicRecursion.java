@@ -103,12 +103,59 @@ public class basicRecursion {
         return newString;
     }
 
+    //509. fibonacci Number
+    public static int fib(int n){
+        if (n<2){
+            return n;
+        }
+        return (fib(n-1) + fib(n-2));
+    }
+
+    public static int fib_dp(int n){
+        //
+        int[] arr = new int[n+1]; //number starts from 0 so we need one more extra cell
+        arr[0] = 0;
+        arr[1] = 1;
+        for (int i = 2; i< n ; i++){
+            arr[n] = arr[n-1]+arr[n-2];
+        }
+        return arr[n];
+    }
+
+    public static int fact(int n){
+        if (n == 0|| n == 1){
+            return n;
+        }
+        return n*fact(n-1);
+    }
+
+    // check for prime optimised
+    public static boolean isPrime(int n){
+        for (int i = 2; i <Math.sqrt(n); i++){
+            if (n%i==0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //1838 frequency of the most frquent element
+//    public int maxFrequency(int[] nums, int k) {
+//
+//
+//    }
+
+    //gcd using euclidean's theorem
+
+
+
 
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Boolean x = ArmStrong_Num(sc.nextInt());
-        System.out.println(x);
+//        Boolean x = ArmStrong_Num(sc.nextInt());
+//        System.out.println(x);
+        System.out.println(fact(sc.nextInt()));
 
 
     }
