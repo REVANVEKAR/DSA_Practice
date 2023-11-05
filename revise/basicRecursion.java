@@ -139,13 +139,13 @@ public class basicRecursion {
         return true;
     }
 
-    //1838 frequency of the most frquent element
+    //1838 frequency of the most frequent element
 //    public int maxFrequency(int[] nums, int k) {
 //
 //
 //    }
 
-    //gcd using euclidean's theorem
+
 
 
 
