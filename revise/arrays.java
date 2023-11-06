@@ -1,5 +1,8 @@
 package revise;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class arrays {
 
     public static int missingNumber(int[] nums) {
@@ -72,14 +75,90 @@ public class arrays {
             // so this is the most efficient way of rotating an array
         }
 
+    }
 
-
-
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int count = 0;
+        int max = 0;
+        for (int i = 0; i< nums.length ; i++){
+            if (nums[i]== 1){
+                count++;
+            }else{
+                max = Math.max(count,max);
+                count = 0;
+            }
+        }
+        max = Math.max(count,max);
+        return max;
 
     }
 
 
+//    public int singleNumber(int[] nums) {
+//        HashMap<Integer,Integer> map = new HashMap<>();
+//        for (int i = 0; i< nums.length ; i++){
+//            if (!map.containsKey(nums[i])){
+//                map.put(nums[i] ,1);
+//            }else {
+//                map.put(nums[i], map.get(nums[i])+1);
+//            }
+//        }
+//        int ans = 0;
+//        for (Map.Entry<Integer, Integer> x : map.entrySet()){
+//            if (x.getValue() == 1){
+//                ans = x.getKey();
+//            }
+//        }
+//        return ans;
+//    } // solution accepted but runtime is slow
 
+    public int singleNumber(int[] nums){
+
+        int ans = 0;
+        for (int i =0 ; i< nums.length ; i++){
+            ans ^= nums[i];
+        }
+        return ans;
+
+    }// yesterdays bitwise logic xor of same number is 0
+    // + also the order doesnt matter so we can use xor operation
+    // great solution
+
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        for (int j = 1; j< nums.length ; j++){
+            if (nums[i] != nums[j]){
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i+1;
+    }
+
+    public boolean check(int[] nums) {
+
+        int count = 0;
+        for (int i =0; i<nums.length; i++){
+            if (nums[i] > nums[(i+1) %nums.length] ){
+                count++;
+            }
+        }
+        if (count>1){
+            return false;
+        }
+
+        return true;
+        // explanation
+        // so what we are doing here is iterating through the array and
+        // checking for the number of rotations
+        // using the same logic we used yesterday for rotating array
+        // here we are using i+1%length because that will make the comparisons work
+        // in a circular way
+
+        // and if there are more than one rotation in the array ( count >1 )
+        // then we can confidently say that the array isnt sorted
+
+    }
 
 
     public static void main(String[] args) {
