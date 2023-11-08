@@ -160,6 +160,130 @@ public class arrays {
 
     }
 
+    //121
+    public int maxProfit(int[] prices){
+        int minbuy = prices[0];
+        int maxProf = 0;
+        for (int price : prices){
+            minbuy = Math.min(minbuy, price);
+            // keep updating min buy
+            maxProf = Math.max(maxProf,price-minbuy );
+            // update maxProf too by comparing and updating the max of the
+            // current max and current price - the minbuy amount
+        }
+        return maxProf;
+    }
+
+    public void sortColors(int[] nums) {
+//        int count0 = 0;
+//        int count1 = 0;
+//        int count2 = 0;
+//        for (int i = 0; i< nums.length ; i++){
+//            if (nums[i] == 0){
+//                count0++;
+//            }else if (nums[i]==1){
+//                count1++;
+//            }else{
+//                count2++;
+//            }
+//        }
+//        int index = 0;
+//        while (count0!= 0){
+//            nums[index] = 0 ;
+//            count0--;
+//            index++;
+//        }
+//        while (count1!= 0){
+//            nums[index] = 1 ;
+//            count1--;
+//            index++;
+//        }
+//        while (count2!= 0){
+//            nums[index] = 2 ;
+//            count2--;
+//            index++;
+//        } // accepted but not the most efficient code
+
+
+        // googled and found out about the dutch national flag algo
+        // revise !!!!1
+
+    }
+
+    public int maxSubArray(int[] nums) {
+//        int max = Integer.MIN_VALUE;
+//
+//        for (int i = 0; i< nums.length ; i++){
+//            int sum = 0;
+//            for (int j = i ; j < nums.length ; j++){
+//                sum += nums[j];
+//                max = Math.max(sum,max);
+//            }
+//        }
+//        return max; // correct solution but TLE
+        int sum = 0;
+        int maxi = nums[0];
+        for (int i = 0; i <nums.length ; i++) {
+            sum = sum + nums[i];
+            maxi = Math.max(maxi,sum);
+            if (sum <0 ){
+                sum = 0;
+            }
+        }
+        return maxi; // kadane's algo fuckkkkk I could've solved this
+    }
+
+    public int[] rearrangeArray(int[] nums) {
+//        int[] nums2 = new int[nums.length];
+//
+//        int index = 0;
+//        for (int i = 0; i< nums.length ; i++){
+//            if (nums[i]>=0){
+//                nums2[index] = nums[i];
+//                index++;
+//            }
+//        }
+//        for (int i = 0; i<nums.length ; i++){
+//            if (nums[i]<0){
+//                nums2[index] = nums[i];
+//                index++;
+//            }
+//        }
+//        int positive = 0;
+//        int negative = nums.length/2;
+//        for (int i = 0; i< nums.length ; i++){
+//            if (i%2==0){
+//                nums[i] = nums2[positive];
+//                positive++;
+//            }else{
+//                nums[i] = nums2[negative];
+//                negative++;
+//            }
+//        }
+//        return nums; // Im so dumbbbbb I couldve done the second part directly
+        // iterating through the array twice + even if i didnt optimise I could have
+        // just done all that in one array
+        // lets optimize
+        int[] res = new int[nums.length];
+        int pos = 0;
+        int neg = 1;
+
+        for (int num : nums){
+            if (num > 0 ){
+                res[pos] = num;
+                pos += 2;
+            }else{
+                res[neg] = num;
+                neg += 2;
+            }
+        }
+        return res;
+
+    }
+
+
+
+
 
     public static void main(String[] args) {
 
