@@ -1,7 +1,7 @@
 package revise;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.print.DocFlavor;
+import java.util.*;
 
 public class arrays {
 
@@ -281,7 +281,102 @@ public class arrays {
 
     }
 
+    public void setZeroes(int[][] matrix) {
+//        int[] row = new int[matrix.length];
+//        int[] col = new int[matrix[0].length];
+//
+//        for (int i =0 ; i<matrix.length;i++){
+//            for (int j = 0; j< matrix.length ; j++){
+//                if (matrix[i][j] == 0){
+//                    row[i] = 1;
+//                    col[j] = 1;
+//                }
+//            }
+//        }
+//        for (int i =0 ; i<matrix.length; i++){
+//            for (int j =0 ; j<matrix[0].length; j++){
+//                if (row[i]==1 || col[j] == 1){
+//                    matrix[i][j] = 0;
+//                }
+//            }
+//        }// not the most ideal solution lets see the one with o(1) space
+    }
 
+    public int longestConsecutive(int[] nums) {
+
+        if (nums.length == 0){
+            return 0;
+        }
+
+        int longest = 1;
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i< nums.length ; i++){
+            set.add(nums[i]);
+        }
+
+        for (int no : set){
+            if (!set.contains(no-1)){ // to check if no is the starting point of
+                // the sequence
+                int count = 1;
+                int x = no; // we need to collect x as we further need it to
+                // use it in a while loop
+                while (set.contains(x+1)){
+                    count++;
+                    x += 1;
+                }
+                longest = Math.max(count,longest);
+            }
+        }
+
+        return longest;
+    }
+
+
+    public void nextPermutation(int[] nums) {
+
+        int index1 = -1; //{2,1,5,4,3,0,0} reference
+        int index2 = -1;
+
+        for (int i = nums.length-2;i>=0 ; i--) {
+            if (nums[i] < nums[i + 1]) {
+                index1 = i;
+                break;
+            }
+        }
+
+        if (index1==-1){
+            reverse(nums , 0);
+        }
+        else{
+            for (int i = nums.length-1; i>=0 ; i--){
+                if (nums[i] > nums[index1]){
+                    index2 = i;
+                    break;
+                }
+            }
+
+            swap(nums,index1,index2);
+            reverse(nums,index1+1);
+        }
+
+
+
+    }
+
+    void swap(int[] nums,int i,int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+    void reverse(int[] nums,int start){
+        int i=start;
+        int j=nums.length-1;
+        while(i<j){
+            swap(nums,i,j);
+            i++;
+            j--;
+        }
+    }
 
 
 
