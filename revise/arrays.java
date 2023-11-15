@@ -378,12 +378,118 @@ public class arrays {
         }
     }
 
+    //48 rotate image
+//    public void rotate(int[][] matrix) {
+//        int k =0;
+//        int[] arr = new int[matrix.length * matrix[0].length];
+//
+//
+//        for (int i = 0; i < matrix.length ; i++){
+//            for (int j = 0; j< matrix[0].length ; j++){
+//                arr[k] = matrix[i][j];
+//                k++;
+//            }
+//        }
+//        k=0;
+//        for (int j = matrix[0].length-1; j>=0 ; j--){
+//            for (int i = 0; i < matrix.length ; i++){
+//                matrix[i][j] = arr[k];
+//                k++;
+//            }
+//        }// ok so a better approach is to find the transpose of the matrix
+//        // and then swap the columns . ( yep should revise math again ;( )
+//    }
+
+    // 48 rotate matrix alternate approach
+    public void rotate(int[][] matrix){
+        for (int i = 0 ; i < matrix.length ; i++){
+            for (int j = i; j < matrix[0].length ; j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }// found transpose
+        // now switching the columns
+
+        for (int i = 0; i< matrix.length ; i++){
+            int start = 0;
+            int end = matrix[i].length-1;
+            while (end>start){
+                matrix[i][start] = matrix[i][start] + matrix[i][end];
+                // image the row is 1, 2, 3
+                // so this line will make it 4, 2, 3
+                matrix[i][end] =  matrix[i][start] - matrix[i][end];
+                // this line will make it 4, 2, (4-3) == 4, 2, 1
+                matrix[i][start] = matrix[i][start] - matrix[i][end];
+                // this line will make it 3, 2, 1
+                start++;
+                end--;
+            }
+        }
+    }
+
+    // 54 spiral matrix
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> list = new ArrayList<>();
+        // right intuition right code but could have optimised/wrote the code better
+        int n = matrix.length;
+        int m = matrix[0].length;
+
+        int rmin = 0;
+        int cmin = 0;
+        int rmax = n-1;
+        int cmax = m-1;
+        int counter = 1;
+
+        while(counter<=n*m){ // geez what a good base case when
+            // we create a simulation to walk in spiral the counter should not exceed
+            // max number of nodes
+
+            // top boundary
+            for (int col = cmin ; col<=cmax && counter<= n*m ; col++){
+                list.add(matrix[rmin][col]);
+                counter++;
+            }
+            rmin++;
+
+            // right boundary
+            for (int row = rmin; row <= rmax && counter<=n*m; row++){
+                list.add(matrix[row][cmax]);
+                counter++;
+            }
+            cmax--;
+
+            //bottom boundary
+            for(int col = cmax;col>=cmin && counter<=n*m;col--){
+                list.add(matrix[rmax][col]);
+                counter++;
+            }
+            rmax--;
+
+
+            //left boundary
+            for(int row = rmax;row>=rmin && counter<=n*m;row--){
+                list.add(matrix[row][cmin]);
+                counter++;
+            }
+            cmin++;
+
+        }
+
+
+        return list;
+    }
+
+
 
 
     public static void main(String[] args) {
 
 //        int[] a  = {1,0,2,3};
 //        int n = missingNumber(a);
-        System.out.println(4%7);
+//        System.out.println(4%7);
+
+
+
     }
 }
