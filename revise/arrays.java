@@ -480,6 +480,75 @@ public class arrays {
         return list;
     }
 
+    //560 subarray sum equals K
+    public int subarraySum(int[] nums, int k) {
+//        int count = 0;
+//
+//        for (int i =0; i< nums.length ; i++){
+//            int sum = 0;
+//            for (int j = i ; j< nums.length ; j++){
+//                sum += nums[j];
+//                if (sum == k){
+//                    count++;
+//                }
+//            }
+//        }
+//        return count;
+//         will work but worst solution
+//         fucking o(n^2) TC
+//
+//         optimal approach
+        int n = nums.length;
+        Map<Integer,Integer> map = new HashMap<>();
+        int prefSum = 0, count = 0;
+
+        map.put(0,1);
+        for (int i = 0; i<n ; i++){
+            prefSum += nums[i];
+
+            int remove = prefSum - k;
+            // use getOrDefault to get either the value of the key or
+            // the default value
+            count += map.getOrDefault(remove,0);
+
+            map.put(prefSum, map.getOrDefault(prefSum,0)+1);
+            // ok this line is important
+            // so what we are doing is updating the prefix sum ka map if its already present then get its
+            // present value or use getOrDefault function to get 0 then add 1 to it
+
+
+        }
+        return count;
+
+    }
+
+//    118. pascal's triangle
+    public List<List<Integer>> generate(int numRoms){
+        List<List<Integer>> list = new ArrayList<>();
+
+        // for handling row 1 which is 0c0 = 1
+        List<Integer> list1 = new ArrayList<>();
+        list1.add(1);
+        list.add(list1);
+        if (numRoms == 1){
+            return list;
+        }
+
+        for (int i = 1; i< numRoms ; i++){
+            List<Integer> temp = new ArrayList<>();
+
+            temp.add(1);
+            for (int j = 1 ; j < i ; j++){
+                temp.add(list.get(i-1).get(j-1) + list.get(i-1).get(j));
+            }
+
+            temp.add(1);
+            list.add(temp);
+        }
+
+        return list;
+
+    }
 
 
 
