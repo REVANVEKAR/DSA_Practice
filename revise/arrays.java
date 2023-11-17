@@ -545,8 +545,84 @@ public class arrays {
             temp.add(1);
             list.add(temp);
         }
+        return list;
+    }
+
+    public List<Integer> majorityElement(int[] nums) {
+//        int n = nums.length;
+//        List<Integer> list = new ArrayList<>();
+//        HashMap<Integer,Integer> map = new HashMap<>();
+//
+//        for (int i = 0; i < nums.length; i++ ){
+//            if (!map.containsKey(nums[i])){
+//                map.put(nums[i] , 1);
+//            }else{
+//                map.put(nums[i], map.get(nums[i])+1);
+//            }
+//        }
+//
+//        for (int value : map.keySet()){
+//            if (map.get(value) > n/3){
+//                list.add(value);
+//            }
+//        }
+//        return list;
+        // good approach but not optimal
+        // use boyers voting algo
+
+        int n = nums.length;
+
+        int el1 = Integer.MIN_VALUE;
+        int el2 = Integer.MIN_VALUE;
+
+        int count1 = 0, count2 = 0;
+
+        for (int i = 0; i< n ; i++){
+            if (count1 == 0 && nums[i] != el2){
+                count1++;
+                el1 = nums[i];
+            }
+            else if (count2 == 0 && nums[i] != el1){
+                count2++;
+                el2 = nums[i];
+            }
+            else if (nums[i] == el1){
+                count1++;
+            }
+            else if (nums[i] == el2){
+                count2++;
+            }
+            else{
+                count1--;
+                count2--;
+            }
+        }
+
+        List<Integer> list = new ArrayList<>();
+
+        count1 = 0; count2 = 0;
+
+        for (int i = 0; i < n; i++){
+            if (nums[i] == el1){
+                count1++;
+            }
+            if (nums[i] == el2){
+                count2++;
+            }
+        }
+
+        int mini = (int)(n/3) + 1;
+        if (count1 >= mini){
+            list.add(el1);
+        }
+        if (count2 >= mini){
+            list.add(el2);
+        }
 
         return list;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums){
 
     }
 
