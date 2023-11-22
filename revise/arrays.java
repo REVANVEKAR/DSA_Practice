@@ -647,9 +647,9 @@ public class arrays {
 
 
     // 18 4sum
-    public List<List<Integer>> fourSum(int[] nums, int target){
-
-    }
+//    public List<List<Integer>> fourSum(int[] nums, int target){
+//
+//    }
 
 
     public static void main(String[] args) {
