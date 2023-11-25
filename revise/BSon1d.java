@@ -71,6 +71,47 @@ public class BSon1d {
         return ans;
     }
 
+    public int singleNonDuplicate(int[] nums) {
+        int si =0, ei = nums.length-1;
+
+        while (si<ei){
+            int mid = si + (ei-si)/2;
+            if (mid%2==1){ // this case if mid falls in odd index we know that the pair
+                // the single element
+                mid--; // this because we know numbers should ideally make even-odd index pairs
+                // and if its in odd index we know it must be in the right side of mid
+                // therefore mid-- and then compare with mid+1
+            }
+            if (nums[mid] != nums[mid+1]){
+                ei = mid; // straightforward
+            }else{
+                si= mid + 2; // why do mid + 1 when we know its a pair
+                // and if si == ei after this we exit the while loop and return this
+            }
+        }
+        return nums[si];
+    }
+
+//    153. Find Minimum in Rotated Sorted Array
+    public int findMin(int[] nums) {
+        int si = 0, ei= nums.length-1;
+        while (si<ei){
+            int mid = si + (ei-si)/2;
+            if (nums[mid]<nums[ei]){ // ok I gotta admit this was a cool solution
+                // this comparison is saying when the array is sorted and rotated
+                // if ei is lesser than the middle index value how in the world will
+                // the subarray from mid to left have the smallest number ( like mid itself is bigger
+                // and the array is sorted and rotated ) therefore move ei
+                ei = mid;
+            }else{
+                si = mid + 1; // this is again classic in BinSea
+            }
+        }
+        return nums[si]; // just return start after exiting
+
+
+    }
+
 
     public static void main(String[] args) {
 

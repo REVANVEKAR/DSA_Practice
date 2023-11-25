@@ -60,9 +60,7 @@ public class sortingAlgos {
         if (si>=ei){
             return;
             // base case when both pointers are pointing to the same element
-
         }
-
         int pivotElement = arr[si];
         quickSort(arr, si, pivotElement-1);
         quickSort(arr, pivotElement+1, ei);
