@@ -108,8 +108,34 @@ public class BSon1d {
             }
         }
         return nums[si]; // just return start after exiting
+    }
+
+    public int findPeakElement(int[] nums) {
+
+        int n = nums.length;
+
+        if (n == 1)return 0;
+        // if only one element just return that as the peak element
+        if (nums[0] > nums[1])return 0; // first element is peak
+        if (nums[n-1]>nums[n-2])return n-1; // last element is peak
+
+        int si=1,ei= nums.length-2; // corner cases irsliye karte he kyunki out of bounds
+        // jayega 0 - n-1 kiya toh
 
 
+        while (si<=ei){
+            int mid = si + (ei-si)/2;
+            if (nums[mid-1] < nums[mid] && nums[mid] > nums[mid+1] ){
+                return mid; // increasing and strictly decreasing therefore answer
+            }
+            if (nums[mid] > nums[mid-1]){
+                si = mid + 1; // the approach is if mid > mid -1 then we should
+                // search in the right part
+            }else {
+                ei = mid -1;// else look for in the left side
+            }
+        }
+        return -1; // karna padta he saheb
     }
 
 
