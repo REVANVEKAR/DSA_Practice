@@ -138,6 +138,44 @@ public class BSon1d {
         return -1; // karna padta he saheb
     }
 
+    //33. Search in Rotated Sorted Array
+    public int search(int[] nums, int target) {
+        int si = 0;
+        int ei = nums.length-1;
+        while (si<=ei){
+            int mid = si + (ei-si)/2;
+            if (nums[mid] == target){
+                return mid;
+            }
+            if (nums[si] <= nums[mid]) {
+                if (nums[si] <= target && target < nums[mid]) {
+                    ei = mid - 1;
+                } else {
+                    si = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[ei]) {
+                    si = mid + 1;
+                } else {
+                    ei = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }//ok so we just have to do four checks instead of 2
+
+    //1482. Minimum Number of Days to Make m Bouquets
+//    public int minDays(int[] bloomDay, int m, int k) {
+//
+//    }
+
+    //875. Koko Eating Bananas
+    public int minEatingSpeed(int[] piles, int h) {
+
+    }
+
+
 
     public static void main(String[] args) {
 
