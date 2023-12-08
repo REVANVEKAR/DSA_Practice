@@ -1,5 +1,8 @@
 package revise;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class strings {
 
     //    1021. Remove Outermost Parentheses
@@ -94,6 +97,92 @@ public class strings {
         }
         return prefix;
     }
+
+//    205. Isomorphic Strings
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()){
+            return false;
+        }
+
+        Map<Character,Character> map = new HashMap<>();
+        for (int i = 0; i< s.length(); i++){
+            char letter1 = s.charAt(i);
+            char letter2 = t.charAt(i);
+            if (map.containsKey(letter1)){
+                if (map.get(letter1) != letter2){
+                    return false;
+                }
+            }else {
+                if (map.containsValue(letter2)){ // this line cuz no two characters may
+                    // map to the same character
+                    return false;
+                }
+                map.put(letter1, letter2);
+            }
+        }
+        return true;
+    }
+
+//    796. Rotate String
+    public boolean rotateString(String s, String goal) {
+        if(s == null || goal == null) {
+            //throw exception on A and B both being null?
+            return false;
+        }
+        if(s.length() != goal.length()) {
+            return false;
+        }
+        if(s.length() == 0) {
+            return true;
+        }
+        for(int i = 0; i < s.length(); i++) {
+            if(rotateString(s, goal, i)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    private boolean rotateString(String A, String B, int rotation) {
+        for(int i = 0; i < A.length(); i++) {
+            if(A.charAt(i) != B.charAt((i+rotation)%B.length())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //242. Valid Anagram
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()){
+            return false;
+        }
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (int i =0; i< s.length(); i++){
+            if (map.containsKey(s.charAt(i))){
+                map.put(s.charAt(i) , map.get(s.charAt(i)) + 1);
+            }else{
+                map.put(s.charAt(i), 1);
+            }
+        }
+
+        for (int i = 0; i< s.length() ; i++){
+            if (map.containsKey(t.charAt(i))){
+                map.put(t.charAt(i) , map.get(t.charAt(i)) - 1);
+            }else{
+                return false;
+            }
+        }
+        int sum = 0;
+        for (int num : map.values()){
+            sum += num;
+        }
+
+        return sum <= 0;
+
+    }
+
+
 
     public static void main(String[] args) {
 
