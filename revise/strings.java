@@ -1,7 +1,9 @@
 package revise;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class strings {
 
@@ -173,15 +175,142 @@ public class strings {
                 return false;
             }
         }
-        int sum = 0;
         for (int num : map.values()){
-            sum += num;
-        }
-
-        return sum <= 0;
-
+                 if(num > 0 || num < 0){
+                     return false;
+                 }
+             }
+        return true;
     }
 
+//    451. Sort Characters By Frequency
+    public String frequencySort(String s) {
+        HashMap<Character , Integer > map = new HashMap<>();
+
+        for (int i = 0 ; i< s.length() ; i++){
+            char c = s.charAt(i);
+            if (map.containsKey(s)){
+                map.put(c, map.get(c)+1);
+            }else{
+                map.put(c, 1);
+            }
+        }
+
+        StringBuilder sc = new StringBuilder();
+        map.entrySet().stream().sorted(Map.Entry.<Character, Integer>comparingByValue().reversed()).forEach(record -> {
+            Character key = record.getKey();
+            int value = record.getValue();
+            for (int i = 0; i < value; i++){
+                sc.append(key);
+            }
+        });
+        return sc.toString();
+    }
+
+    public int maxDepth(String s) {
+
+//        int sum = 0;
+//        int depth = 0;
+//
+//        Stack<Character> stack = new Stack<>();
+//        for (int i = 0; i< s.length(); i++){
+//            char c = s.charAt(i);
+//            if (c == '('){
+//                stack.push(c);
+//            }else if (c == ')'){
+//                stack.pop();
+//            }else if (c >= '0' && c <= '9'){
+//                if (sum < Integer.parseInt(String.valueOf(c))){
+//                    sum = Integer.parseInt(String.valueOf(c));
+//                    depth = stack.size();
+//                }
+//            }
+//        }
+//        return depth;
+        // it wasnt that deep bro chumma wasted time
+
+        int ans=0;
+        int temp=0;
+        for(int i=0; i<s.length(); i++){
+            if(s.charAt(i) == '('){
+                temp++;
+            }
+            if(s.charAt(i)==')'){
+                temp--;
+            }
+            ans=Math.max(ans,temp);
+        }
+        return ans;
+    }
+
+    public int romanToInt(String s) {
+        int output = 0;
+        int prev = 0;
+        int numb = 0;
+
+        for (int i = s.length()-1; i<=0; i--){
+
+            switch (s.charAt(i)){
+                case 'M' -> numb = 1000;
+                case 'D' -> numb = 500;
+                case 'C' -> numb = 100;
+                case 'L' -> numb = 50;
+                case 'X' -> numb = 10;
+                case 'V' -> numb = 5;
+                case 'I' -> numb = 1;
+            }
+            if (prev>numb){
+                output -= numb;
+            }else {
+                output += numb;
+            }
+
+            prev = numb;
+
+        }
+        return output;
+    }
+
+    //1781. Sum of Beauty of All Substrings
+    public int beautySum(String s) {
+        int length = s.length();
+        int totalBeauty = 0;
+
+        // Iterate through all possible substrings
+        for (int i = 0; i < length; i++) {
+            // Initialize an array to store character frequencies for the current substring
+            int[] charFreq = new int[26]; // Assuming lowercase English letters
+
+            for (int j = i; j < length; j++) {
+                // Update the character frequency array based on characters in the substring
+                charFreq[s.charAt(j) - 'a']++;
+
+                // Calculate the beauty of the current substring and add it to the total beauty
+                totalBeauty += calculateBeauty(charFreq);
+            }
+        }
+
+        // Return the total sum of beauty for all substrings
+        return totalBeauty;
+    }
+
+    public static int calculateBeauty(int[] charFreq) {
+        int minFreq = Integer.MAX_VALUE;
+        int maxFreq = 0;
+
+        // Iterate through the character frequency array
+        for (int freq : charFreq) {
+            if (freq > maxFreq) {
+                maxFreq = freq;
+            }
+            if (freq > 0 && freq < minFreq) {
+                minFreq = freq;
+            }
+        }
+
+        // Calculate and return the beauty of the substring
+        return maxFreq - minFreq;
+    }
 
 
     public static void main(String[] args) {
