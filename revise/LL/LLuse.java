@@ -1,6 +1,7 @@
 package revise.LL;
 
 import java.awt.event.ItemEvent;
+import java.util.*;
 
 public class LLuse {
 
@@ -65,6 +66,155 @@ public class LLuse {
         return newHead;
     }
 
+    public boolean isPalindrome(ListNode head) {
+//        if (head == null || head.next == null){
+//            return true;
+//        }
+//
+//        ListNode temp = head;
+//
+//        List<Integer> list = new ArrayList<>();
+//
+//        while (temp != null){
+//            list.add(temp.val);
+//            temp = temp.next;
+//        }
+//
+//
+//
+//        int i = 0;
+//        int j = list.size()-1;
+//        while (i<j){
+//            if (list.get(i) != list.get(j)){
+//                return false;
+//            }
+//            i++;
+//            j--;
+//        }
+//        return true;
+        if(head==null||head.next==null) return true;
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast.next!=null&&fast.next.next!=null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        slow.next = reverse(slow.next);
+        slow = slow.next;
+        ListNode dummy = head;
+
+        while (slow!=null){
+            if (dummy.val != slow.val){
+                return false;
+            }
+            dummy = dummy.next;
+            slow= slow.next;
+        }
+        return true;
+    }
+
+    public ListNode reverse(ListNode ptr) {
+        ListNode pre=null;
+        ListNode nex=null;
+        while(ptr!=null) {
+            nex = ptr.next;
+            ptr.next = pre;
+            pre=ptr;
+            ptr=nex;
+        }
+        return pre;
+    }
+
+    public boolean hasCycle(ListNode head) {
+        HashSet<ListNode> visited_nodes = new HashSet<>();
+        ListNode current_node = head;
+        while (current_node != null) {
+            if (visited_nodes.contains(current_node)) {
+                return true;
+            }
+            visited_nodes.add(current_node);
+            current_node = current_node.next;
+        }
+        return false;
+    }
+
+    public boolean hasCycleHandT(ListNode head) {
+        ListNode slow_pointer = head, fast_pointer = head;
+        while (fast_pointer != null && fast_pointer.next != null) {
+            slow_pointer = slow_pointer.next;
+            fast_pointer = fast_pointer.next.next;
+            if (slow_pointer == fast_pointer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        HashSet<ListNode> visited_nodes = new HashSet<>();
+        ListNode current_node = head;
+        while (current_node != null) {
+            if (visited_nodes.contains(current_node)) {
+                return current_node;
+            }
+            visited_nodes.add(current_node);
+            current_node = current_node.next;
+        }
+        return null;
+    }
+
+    public ListNode detectCycleHandT(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast){ // cycle found
+                slow = head; // reset slow
+                while (slow!= fast){  // find the point where the cycle by
+                    // making both the pointers move the same number of nodes
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow; // when slow == fast that means thats the node
+                // therefore return that node
+            }
+        }
+        return null; // if not found a loop
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head == null || head.next == null ){
+            return null;
+        }
+        int count = count(head); // this will return the length
+        if (n == count){
+            return head.next; //means delete the first node
+        }
+
+        int i = 1;
+        ListNode temp = head;
+        while (i < count-n){ // count-n will give the actual pos
+            temp = temp.next;
+            i++;
+        }
+        // once reached that pos we will simply skip it ;
+        temp.next = temp.next.next;
+
+        return head;
+    }
+
+    public int count(ListNode head){
+        int count = 0;
+        ListNode temp = head;
+        while(temp!= null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
 
 
 //    public class ListNode {
