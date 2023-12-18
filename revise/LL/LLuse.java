@@ -1,6 +1,7 @@
 package revise.LL;
 
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyAdapter;
 import java.util.*;
 
 public class LLuse {
@@ -216,14 +217,72 @@ public class LLuse {
         return count;
     }
 
-
-//    public class ListNode {
-//        int data;
-//        ListNode next;
-//        ListNode(int x) {
-//            this.data = x;
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+//        ListNode one = headA;
+//        ListNode two = headB;
+//        HashSet<ListNode> set = new HashSet<>();
+//
+//        while (one != null){
+//            if (!set.contains(one)){
+//                set.add(one);
+//            }else {
+//                return one;
+//            }
+//            one = one.next;
 //        }
-//    }
+//
+//        while (two != null){
+//            if (set.contains(two)){
+//                return two;
+//            }
+//            two = two.next;
+//        }
+//        return null;
+
+        int c1=0,c2=0;
+        ListNode a=headA,b=headB;
+        while(a!=null){
+            c1++;
+            a=a.next;
+        }
+        while(b!=null){
+            c2++;
+            b=b.next;
+        }
+        while(c1>c2){
+            c1--;
+            headA=headA.next;
+        }
+        while(c2>c1){
+            c2--;
+            headB=headB.next;
+        }
+        while(headA!=headB){
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return headA;
+
+    }
+
+    public ListNode oddEvenList(ListNode head) {
+        ListNode first = head;
+        ListNode second = head.next;
+
+        while (first.next != null && first.next.next != null){
+            first.next = first.next.next;
+            second.next = second.next.next;
+        }
+        first.next = second;
+
+        return head;
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
+    }
+
+
 
     public class ListNode {
         int val;
@@ -241,4 +300,12 @@ public class LLuse {
             this.next = next;
         }
     }
+//    public class ListNode {
+//        int data;
+//        ListNode next;
+//        ListNode(int x) {
+//            this.data = x;
+//        }
+//    }
+
 }
