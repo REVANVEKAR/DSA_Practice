@@ -266,22 +266,127 @@ public class LLuse {
     }
 
     public ListNode oddEvenList(ListNode head) {
-        ListNode first = head;
-        ListNode second = head.next;
-
-        while (first.next != null && first.next.next != null){
-            first.next = first.next.next;
-            second.next = second.next.next;
+        if (head == null || head.next == null){
+            return head;
         }
-        first.next = second;
+
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode pointerToEven = head.next;
+
+        while (odd.next != null || odd.next.next != null){
+            odd.next = odd.next.next;
+            odd = odd.next;
+            even = even.next.next;
+            even = even.next;
+        }
+        odd.next = pointerToEven;
+
+        return head;
+
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0); // create a dummyHead and make the
+        ListNode tail = dummyHead; // tail pointer to move and add new numbers
+        int carry =0;
+
+        while (l1!= null || l2 != null || carry != 0){
+            int digit1 = (l1 != null) ? l1.val : 0; // getting the value if its null then 0
+            int digit2 = (l2 != null) ? l2.val : 0; // same here
+
+            int sum = digit1 + digit2 + carry; // getting the sum of two number
+            int digit = sum % 10; // getting the digit if its below 10 then itll be the number itself
+            carry = sum/10; // seeing if its bigger than 10 to get the carry
+
+
+            ListNode newNode = new ListNode(digit); // create a new node
+            tail.next = newNode; // join it manually to the tail of the dummyHead
+            tail = tail.next; // move the tail pointer
+
+            l1 = (l1 != null)? l1.next : null; // check if the LL is done
+            l2 = (l2 != null)? l2.next : null;
+        }
+
+        ListNode result = dummyHead.next; // collect result from dummyHead.next ( to exclude the 0 node )
+        dummyHead.next = null; // breaking the dummy 0 number
+        return result;
+    }
+
+    public ListNode deleteMiddle(ListNode head) {
+        if (head.next == null){
+            return null;
+        }
+
+        ListNode prev = head;
+        ListNode curr = head;
+        ListNode faster = head;
+
+        while (faster.next!= null && faster.next.next != null){
+            prev = curr;
+            curr = curr.next;
+            faster = faster.next.next;
+        }
+
+        if (faster.next!= null){
+            prev = curr;
+            curr = curr.next;
+        }
+
+        prev.next = curr.next;
 
         return head;
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode sortList(ListNode head) {
+        if (head.next == null || head == null){
+            return head;
+        }
+
+        ListNode prev = head;
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next!=null){
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        prev.next = null;
+
+        ListNode l1 = sortList(head); // calling recurive function on first half
+        ListNode l2 = sortList(slow); // similarly, on second half
+
+        return merge(l1,l2);
 
     }
 
+    public ListNode merge(ListNode l1 , ListNode l2 ){
+        ListNode dummyHead = new ListNode(0); // create a dummy head and
+        ListNode tail = dummyHead; // use a tail pointer to create a new merged list
+
+        while (l1 != null && l1 != null){
+            if (l1.val < l2.val){
+                tail.next = l1;
+                l1 = l1.next;
+            }else{
+                tail.next = l2;
+                l2 = l2.next;
+            }
+            tail = tail.next;
+        }
+
+        if (l1 != null){ // if one was empty and the other still had nodes
+            tail.next = l1;
+            l1 = l1.next;
+        }
+        if (l2 != null){ // for the similar case
+            tail.next = l2;
+            l2 = l2.next;
+        }
+        return dummyHead.next; // exclude the 0
+    }
 
 
     public class ListNode {
