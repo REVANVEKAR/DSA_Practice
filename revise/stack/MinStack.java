@@ -14,12 +14,12 @@ public class MinStack {
 
     }
 
-    public int top() {
+//    public int top() {
+//
+//    }
 
-    }
-
-    public int getMin() {
-
-    }
+//    public int getMin() {
+//
+//    }
 
 }

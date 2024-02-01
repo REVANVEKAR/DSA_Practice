@@ -138,18 +138,18 @@ public class stackSols {
     }
 
 //    1004. Max Consecutive Ones III
-    public int longestOnes(int[] nums, int k) {
-
-        int n = nums.length;
-
-        int i = 0;
-        int j = 1;
-
-        while (j < n){
-
-        }
-
-    }
+//    public int longestOnes(int[] nums, int k) {
+//
+//        int n = nums.length;
+//
+//        int i = 0;
+//        int j = 1;
+//
+//        while (j < n){
+//
+//        }
+//
+//    }
 
 
     public static void main(String[] args) {
