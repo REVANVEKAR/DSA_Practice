@@ -92,6 +92,91 @@ public class sliding_window {
         return ans;
     }
 
+//    public int maxScore(int[] cardPoints, int k) {
+//
+//    }
+
+    public int numberOfSubstrings(String s) {
+        if(s.length()>3){
+            if (s.length()==3 && s.contains("a") && s.contains("b") && s.contains("c")){
+                return 1;
+            }
+            return 0;
+        }
+
+        int start = 0;
+        int end = 2;
+        int count = 0;
+        while (end<s.length()){
+            String temp = s.substring(start+end+1);
+            while (start<=end && end-start>=3-1 && temp.contains("a") && temp.contains("b") && temp.contains("c")){
+                count += 1+s.length()-(end+1);
+                start++;
+                temp = s.substring(start,end+1);
+            }
+            end++;
+        }
+        return count;
+    }
+
+//    public int numberOfSubstrings(String s) {
+//        char[] c = s.toCharArray();
+//        int[] map = new int[3];
+//        int k = 0;
+//        int count = 0;
+//        int left = 0;
+//        for(int i = 0; i < c.length; i++){
+//            map[c[i] - 'a']++;
+//            if(map[c[i] - 'a'] == 1){
+//                k++;
+//            }
+//            while(k == 3){
+//                map[c[left] - 'a']--;
+//                if(map[c[left]-'a'] == 0){
+//                    k--;
+//                }
+//                left++;
+//            }
+//            count += left;
+//        }
+//        return count;
+//    }
+    //a solution to the a b c problem that I could never think of :(
+
+
+//    public int numberOfSubstrings(String s) {
+//        return helper(s, 3) - helper(s, 2);
+//    }
+//
+//    int helper(String s, int limit) {
+//        int N = s.length();
+//        Map<Character, Integer> map = new HashMap<>();
+//
+//        int count = 0;
+//        int l = 0;
+//        for (int r = 0; r < N; r++) {
+//            char c = s.charAt(r);
+//            map.put(c, r);
+//
+//            while (l <= r && map.size() > limit) {
+//                char lc = s.charAt(l);
+//
+//                if (map.get(lc) == l) {
+//                    map.remove(lc);
+//                }
+//
+//                l++;
+//            }
+//
+//            count += r - l + 1;
+//        }
+//
+//        return count;
+//    }
+
+    // a solution i should have thought of
+
+
 
     public static void main(String[] args) {
         sliding_window obj = new sliding_window();
