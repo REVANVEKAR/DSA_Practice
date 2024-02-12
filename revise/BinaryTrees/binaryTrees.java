@@ -1,5 +1,8 @@
 package revise.BinaryTrees;
 
+import com.sun.source.tree.Tree;
+
+import javax.sound.midi.MidiFileFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -39,12 +42,58 @@ public class binaryTrees {
                 stack.push(temp.right);
             }
             if (temp.left != null){
-                stack.push(temp.right);
+                stack.push(temp.left);
             }
         }
 
         return list;
     }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        inorderTraversalHelper(root,list);
+
+        return list;
+    }
+
+    public void inorderTraversalHelper(TreeNode root , List<Integer> list){
+        if (root == null){
+            return;
+        }
+
+        list.add(root.val);
+        inorderTraversalHelper(root.right, list);
+        inorderTraversalHelper(root.left,list);
+
+    }
+
+
+//    94. Binary Tree Inorder Traversal
+    public List<Integer> inorderTraversalIterative(TreeNode root) {
+
+        List<Integer> list = new ArrayList<>();
+
+        if (root == null){
+            return list;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode temp = root;
+        while (true){
+            if (temp!=null){
+                stack.push(temp);
+                temp=temp.left;
+            }else{
+                if (stack.isEmpty()){
+                    break;
+                }
+                temp = stack.pop();
+                list.add(temp.val);
+                temp= temp.right;
+            }
+        }
+        return list;
+    }
+
 
 
 
