@@ -112,10 +112,41 @@ public class binaryTrees {
 
     }
 
-//    public List<Integer> postorderTraversalIterative(TreeNode root){
-//        List<Integer> list = new ArrayList<>();
-//
-//    } // continue tom
+    public List<Integer> postorderTraversalIterative(TreeNode root){
+        List<Integer> list = new ArrayList<>();
+
+        if(root == null){
+            return list;
+        }
+
+        Stack<TreeNode> one = new Stack<>();
+        Stack<TreeNode> two = new Stack<>();
+
+        one.push(root);
+
+        while (!one.isEmpty()){
+            TreeNode temp = one.pop();
+            two.push(temp);
+
+            if (temp.left != null){
+                one.push(temp.left);
+            }
+
+            if (temp.right != null){
+                one.push(temp.right);
+            }
+
+        }
+
+        while (!two.isEmpty()){
+            list.add(two.pop().val);
+        }
+
+        return list;
+
+    } // continue tom
+
+
 
     public List<List<Integer>> levelOrder(TreeNode root) {
 
@@ -142,10 +173,66 @@ public class binaryTrees {
             }
             result.add(temp);
         }
-
         return result;
+    }
+
+    // using one stack
+    public List<Integer> postorderTraversalOneStack(TreeNode root){
+        List<Integer> list = new ArrayList<>();
+
+        if (root == null){
+            return list;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode curr = root;
+        TreeNode lastVisited = null;
+
+        while (curr!= null || !stack.isEmpty()){
+            if (curr!= null){
+                stack.push(curr);
+                curr = curr.left;
+            }else{
+                TreeNode temp = stack.peek();
+                if (temp.right != null && temp.right != lastVisited){
+                    curr = temp.right;
+                }
+                else {
+                    stack.pop();
+                    list.add(temp.val);
+                    lastVisited = temp;
+                }
+            }
+        }
+        return list;
 
     }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+
+        int a = 1 + maxDepth(root.right);
+        int b = 1 + maxDepth(root.left);
+
+        return Math.max(a,b);
+    } // bheryyy good
+
+
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+
+    }
+
+//    public int height
+
+
+
+
 
 
     public static void main(String[] args) {
