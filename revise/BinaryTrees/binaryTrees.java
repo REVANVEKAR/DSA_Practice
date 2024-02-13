@@ -3,6 +3,7 @@ package revise.BinaryTrees;
 import com.sun.source.tree.Tree;
 
 import javax.sound.midi.MidiFileFormat;
+import javax.swing.event.TreeWillExpandListener;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.*;
 
@@ -221,15 +222,43 @@ public class binaryTrees {
 
 
 
+    static int max;
     public int diameterOfBinaryTree(TreeNode root) {
+        max = 0;
+        height(root);
+        return max;
+    }
+
+    public int height(TreeNode root){
         if (root == null){
             return 0;
         }
+        int left = height(root.left);
+        int right = height(root.right);
 
+        max = Math.max(max, left + right);
+
+        return 1+ Math.max(left , right );
     }
 
-//    public int height
+    public boolean isBalanced(TreeNode root) {
+        return heightModified(root) != -1;
+    }
 
+    private int heightModified(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = heightModified(root.left);
+        int right = heightModified(root.right);
+
+        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1;
+        }
+
+        return 1 + Math.max(left, right);
+    } // come back and understand the zero part and move on
 
 
 
