@@ -260,6 +260,40 @@ public class binaryTrees {
         return 1 + Math.max(left, right);
     } // come back and understand the zero part and move on
 
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+
+        if (p == null && q == null){
+            return true;
+        }
+
+        if (p == null || q == null || p.val != q.val){
+            return false;
+        }
+        return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
+    }
+
+
+    public boolean isSymmetric(TreeNode root) {
+
+        if (root == null){
+            return true;
+        }
+
+        return isMirror(root.right, root.left);
+
+    }
+
+    public boolean isMirror( TreeNode one, TreeNode two){
+        if (one == null && two == null){
+            return true;
+        }
+
+        if (one == null || two == null){
+            return false;
+        }
+
+        return one.val == two.val && isMirror(one.right, two.left) && isMirror(one.left , two.right);
+    }
 
 
 
