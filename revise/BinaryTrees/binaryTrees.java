@@ -295,6 +295,73 @@ public class binaryTrees {
         return one.val == two.val && isMirror(one.right, two.left) && isMirror(one.left , two.right);
     }
 
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        if (root == null){
+            return result;
+        }
+
+        queue.offer(root);
+
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            for (int i = 0; i < size; i++){
+                TreeNode currNode = queue.poll();
+                if (i == 0){
+                    result.add(currNode.val);
+                }
+                if (currNode.right != null){
+                    queue.offer(currNode.right);
+                }
+                if (currNode.left != null){
+                    queue.offer(currNode.left);
+                }
+            }
+        }
+
+        return result;
+    } // almost had it but koi na:)
+
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        if (root == null){
+            return result;
+        }
+
+        queue.offer(root);
+        boolean flag = true;
+
+        while (!queue.isEmpty()){
+            int level = queue.size();
+            ArrayList<Integer> sublist = new ArrayList<>();
+            for (int i = 0; i<level ; i++){
+                int index = i;
+                if (queue.peek().left != null){
+                    queue.offer(queue.peek().left);
+                }
+                if (queue.peek().right != null){
+                    queue.offer(queue.peek().right);
+                }
+                if (flag){
+                    sublist.add(queue.poll().val);
+                }else{
+                    sublist.add(0,queue.poll().val);
+                }
+            }
+            flag = !flag;
+            result.add(sublist);
+        }
+
+
+        return result;
+    }
+
+
 
 
 
