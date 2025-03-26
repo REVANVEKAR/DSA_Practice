@@ -198,6 +198,10 @@ public class sliding_window {
 
     }
 
+//    public int numSubarrayProductLessThanK(int[] nums, int k) {
+//
+//    }
+
 
 
     public static void main(String[] args) {
